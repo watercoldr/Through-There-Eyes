@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Parent Voices — Through Their Eyes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F1EA; --cream-deep: #EDE7DB; --ink: #3A322A; --ink-soft: #5A5047;
+    --sage: #8A9A7B; --sage-soft: #B8C4AB; --dusty-blue: #7B96AA; --terracotta: #C4856A;
+    --line: rgba(58, 50, 42, 0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.6; font-weight: 300; padding-top: 80px; }
+  h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; line-height: 1.1; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+  
+  nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: rgba(245, 241, 234, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; letter-spacing: 0.02em; text-decoration: none; color: var(--ink); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .nav-links a { color: var(--ink); text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--sage); }
+  .mobile-back { display: none; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; transition: color 0.3s; }
+  .mobile-back:hover { color: var(--sage); }
+
+  .page-header { padding: 4rem 0 2rem; text-align: center; max-width: 800px; margin: 0 auto; }
+  .page-eyebrow { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1.5rem; }
+  .page-title { font-size: clamp(3rem, 6vw, 5rem); margin-bottom: 1rem; }
+  .page-desc { font-size: 1.2rem; color: var(--ink-soft); font-family: 'Cormorant Garamond', serif; font-style: italic; }
+
+  .filter-tabs { display: flex; justify-content: center; gap: 1rem; margin: 3rem 0; flex-wrap: wrap; }
+  .tab-btn { padding: 0.8rem 2rem; background: transparent; border: 1px solid var(--line); font-family: 'Inter', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); cursor: pointer; transition: all 0.3s; }
+  .tab-btn:hover, .tab-btn.active { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+  .content-section { padding: 2rem 0 6rem; display: none; }
+  .content-section.active { display: block; animation: fadeIn 0.6s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .content-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2.5rem; }
+  .content-card { background: var(--cream); border: 1px solid var(--line); display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .content-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px -10px rgba(58, 50, 42, 0.1); }
+  .content-image { height: 240px; background-color: var(--cream-deep); position: relative; overflow: hidden; }
+  .img-1 { background: linear-gradient(135deg, #D4A594 0%, #C4856A 100%); }
+  .img-2 { background: linear-gradient(135deg, #E8DCC8 0%, #C4B39A 100%); }
+  .img-3 { background: linear-gradient(135deg, #C8B8A8 0%, #8A7A6A 100%); }
+  .img-4 { background: linear-gradient(135deg, #B8C4AB 0%, #8A9A7B 100%); }
+  
+  .content-tag { position: absolute; top: 1rem; left: 1rem; background: rgba(255,255,255,0.9); padding: 0.3rem 0.8rem; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; }
+  .content-body { padding: 2rem; flex: 1; display: flex; flex-direction: column; }
+  .content-title { font-size: 1.8rem; margin-bottom: 1rem; color: var(--ink); }
+  .content-excerpt { color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 1.5rem; flex: 1; }
+  .content-meta { font-size: 0.8rem; color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 1rem; display: flex; justify-content: space-between; }
+  
+  .video-card .content-image { display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .play-icon { width: 70px; height: 70px; background: rgba(255,255,255,0.95); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s; }
+  .video-card:hover .play-icon { transform: scale(1.1); }
+  .play-icon::before { content: ''; width: 0; height: 0; border-left: 18px solid var(--ink); border-top: 11px solid transparent; border-bottom: 11px solid transparent; margin-left: 5px; }
+  .video-duration { position: absolute; bottom: 1rem; right: 1rem; background: rgba(0,0,0,0.7); color: white; padding: 0.3rem 0.6rem; font-size: 0.75rem; border-radius: 3px; }
+
+  .statement-card { background: var(--ink); color: var(--cream); padding: 2.5rem; position: relative; min-height: 280px; display: flex; flex-direction: column; justify-content: space-between; }
+  .statement-card::before { content: '"'; font-family: 'Cormorant Garamond', serif; font-size: 8rem; position: absolute; top: -1rem; left: 1.5rem; opacity: 0.2; line-height: 1; }
+  .statement-text { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; line-height: 1.5; margin-bottom: 2rem; position: relative; z-index: 1; }
+  .statement-author { font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.8; }
+  .statement-date { font-size: 0.75rem; opacity: 0.6; margin-top: 0.5rem; }
+
+  .submit-section { padding: 6rem 0; text-align: center; background: var(--cream-deep); margin-top: 4rem; }
+  .submit-title { font-size: 2.5rem; margin-bottom: 1rem; }
+  .submit-text { color: var(--ink-soft); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+  .btn-submit { display: inline-block; padding: 1.2rem 3rem; background: var(--terracotta); color: var(--cream); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; transition: all 0.3s; border: 2px solid var(--terracotta); }
+  .btn-submit:hover { background: transparent; color: var(--terracotta); }
+
+  footer { padding: 3rem 2rem; background: var(--ink); color: var(--cream); border-top: 1px solid rgba(245, 241, 234, 0.1); }
+  .footer-inner { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; font-size: 0.85rem; color: rgba(245, 241, 234, 0.6); }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--cream); }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .mobile-back { display: block; }
+    .content-grid { grid-template-columns: 1fr; }
+    .filter-tabs { gap: 0.5rem; }
+    .tab-btn { padding: 0.6rem 1.2rem; font-size: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="mobile-back">← Back</a>
+  <a href="index.html" class="nav-logo">Through Their Eyes</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="teens.html">Teen Voices</a></li>
+    <li><a href="parents.html" style="color: var(--terracotta);">Parent Voices</a></li>
+    <li><a href="experts.html">Expert Voices</a></li>
+  </ul>
+  <div style="width: 60px;"></div>
+</nav>
+
+<header class="page-header container">
+  <div class="page-eyebrow">Category 02</div>
+  <h1 class="page-title">Parent Voices</h1>
+  <p class="page-desc">The quiet worries, the unspoken hopes, and the lessons learned in raising humans through a changing world.</p>
+</header>
+
+<div class="filter-tabs">
+  <button class="tab-btn active" onclick="showSection('articles', this)">Articles</button>
+  <button class="tab-btn" onclick="showSection('longform', this)">Long Interviews</button>
+  <button class="tab-btn" onclick="showSection('quicktakes', this)">Quick Takes</button>
+  <button class="tab-btn" onclick="showSection('statements', this)">Public Statements</button>
+</div>
+
+<section id="articles" class="content-section active">
+  <div class="container">
+    <div class="content-grid">
+      <article class="content-card">
+        <div class="content-image img-1"><span class="content-tag">Essay</span></div>
+        <div class="content-body">
+          <h3 class="content-title">Letting go, slowly</h3>
+          <p class="content-excerpt">A mother on the quiet grief and quiet joy of watching her child become someone she doesn't fully recognize.</p>
+          <div class="content-meta"><span>By Priya M.</span><span>6 min read</span></div>
+        </div>
+      </article>
+      <article class="content-card">
+        <div class="content-image img-2"><span class="content-tag">Reflection</span></div>
+        <div class="content-body">
+          <h3 class="content-title">The silence in the car ride home</h3>
+          <p class="content-excerpt">Learning to sit in the quiet with your teenager, and realizing that silence isn't always rejection.</p>
+          <div class="content-meta"><span>By David R.</span><span>4 min read</span></div>
+        </div>
+      </article>
+      <article class="content-card">
+        <div class="content-image img-3"><span class="content-tag">Letter</span></div>
+        <div class="content-body">
+          <h3 class="content-title">To the parent I was five years ago</h3>
+          <p class="content-excerpt">If I could go back, I would tell myself to worry less about the grades and more about the laughter.</p>
+          <div class="content-meta"><span>By Sarah & Tom</span><span>5 min read</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="longform" class="content-section">
+  <div class="container">
+    <div class="content-grid">
+      <article class="content-card video-card">
+        <div class="content-image img-1"><div class="play-icon"></div><span class="video-duration">45:10</span></div>
+        <div class="content-body">
+          <h3 class="content-title">"I just want them to be safe"</h3>
+          <p class="content-excerpt">A deep conversation with three parents about the anxiety of raising teens in an unpredictable world.</p>
+          <div class="content-meta"><span>Episode 04</span><span>45 min</span></div>
+        </div>
+      </article>
+      <article class="content-card video-card">
+        <div class="content-image img-2"><div class="play-icon"></div><span class="video-duration">32:00</span></div>
+        <div class="content-body">
+          <h3 class="content-title">When they stop holding your hand</h3>
+          <p class="content-excerpt">Fathers discuss the physical and emotional distance that grows during adolescence, and how to bridge it.</p>
+          <div class="content-meta"><span>Episode 03</span><span>32 min</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="quicktakes" class="content-section">
+  <div class="container">
+    <div class="content-grid">
+      <article class="content-card video-card">
+        <div class="content-image img-1"><div class="play-icon"></div><span class="video-duration">2:15</span></div>
+        <div class="content-body">
+          <h3 class="content-title">"What is your biggest fear as a parent?"</h3>
+          <p class="content-excerpt">Raw, unscripted answers from parents across the country.</p>
+          <div class="content-meta"><span>Quick Take</span><span>2 min</span></div>
+        </div>
+      </article>
+      <article class="content-card video-card">
+        <div class="content-image img-3"><div class="play-icon"></div><span class="video-duration">3:40</span></div>
+        <div class="content-body">
+          <h3 class="content-title">"One thing I wish I knew before they turned 13"</h3>
+          <p class="content-excerpt">Hindsight is 20/20. Parents share their hardest-learned lessons.</p>
+          <div class="content-meta"><span>Quick Take</span><span>4 min</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="statements" class="content-section">
+  <div class="container">
+    <div class="content-grid">
+      <article class="content-card statement-card">
+        <div><p class="statement-text">I don't ask a hundred questions because I don't trust you. I ask because my mind creates a hundred worst-case scenarios.</p><div class="statement-author">— A Mother of two</div></div>
+        <div class="statement-date">Shared on Sep 6, 2026</div>
+      </article>
+      <article class="content-card statement-card">
+        <div><p class="statement-text">The hardest part isn't the rebellion. It's realizing that my way isn't the only way anymore.</p><div class="statement-author">— James, 45</div></div>
+        <div class="statement-date">Shared on Sep 1, 2026</div>
+      </article>
+      <article class="content-card statement-card">
+        <div><p class="statement-text">I miss the little kid who told me everything. But I am so proud of the young adult who is learning to keep their own counsel.</p><div class="statement-author">— Elena, 42</div></div>
+        <div class="statement-date">Shared on Aug 28, 2026</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="submit-section">
+  <div class="container">
+    <h2 class="submit-title">Parenting is a journey, not a manual.</h2>
+    <p class="submit-text">Share your experiences, your struggles, and your triumphs. Let other parents know they aren't alone.</p>
+    <a href="#" class="btn-submit" onclick="alert('Submission form would open here')">Share Your Story</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Through Their Eyes</div>
+    <div>© 2026 · A youth-led initiative</div>
+  </div>
+</footer>
+
+<script>
+  function showSection(sectionName, btnElement) {
+    document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById(sectionName).classList.add('active');
+    btnElement.classList.add('active');
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Through Their Eyes — Different perspectives. Shared understanding.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F1EA; --cream-deep: #EDE7DB; --ink: #3A322A; --ink-soft: #5A5047;
+    --sage: #8A9A7B; --sage-soft: #B8C4AB; --dusty-blue: #7B96AA; --terracotta: #C4856A;
+    --line: rgba(58, 50, 42, 0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.6; font-weight: 300; overflow-x: hidden; }
+  h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-weight: 500; letter-spacing: -0.01em; line-height: 1.1; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+  
+  nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: rgba(245, 241, 234, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; letter-spacing: 0.02em; text-decoration: none; color: var(--ink); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .nav-links a { color: var(--ink); text-decoration: none; transition: color 0.3s; position: relative; }
+  .nav-links a:hover { color: var(--sage); }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--sage); transition: width 0.3s; }
+  .nav-links a:hover::after { width: 100%; }
+
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 8rem 2rem 4rem; }
+  .hero-inner { max-width: 1280px; margin: 0 auto; width: 100%; }
+  .hero-eyebrow { font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; }
+  .hero-eyebrow::before { content: ''; width: 40px; height: 1px; background: var(--sage); }
+  .hero-title { font-size: clamp(3.5rem, 10vw, 9rem); line-height: 0.95; margin-bottom: 3rem; font-weight: 400; }
+  .hero-title .line { display: block; overflow: hidden; }
+  .hero-title .italic { font-style: italic; color: var(--sage); }
+  .hero-tagline { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.5rem, 2.5vw, 2rem); font-style: italic; color: var(--ink-soft); max-width: 600px; margin-bottom: 4rem; }
+  .hero-question { font-size: 1.1rem; max-width: 560px; color: var(--ink-soft); line-height: 1.7; border-left: 2px solid var(--terracotta); padding-left: 1.5rem; }
+
+  .perspective-section { padding: 6rem 0; position: relative; }
+  .perspective-visual { display: flex; justify-content: center; align-items: center; height: 500px; position: relative; margin: 2rem 0; }
+  .circle { position: absolute; width: 320px; height: 320px; border-radius: 50%; mix-blend-mode: multiply; transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .circle-left { background: radial-gradient(circle at 30% 30%, var(--sage-soft), var(--sage)); left: calc(50% - 240px); opacity: 0.75; }
+  .circle-right { background: radial-gradient(circle at 70% 30%, #D4A594, var(--terracotta)); right: calc(50% - 240px); opacity: 0.75; }
+  .circle-label { position: absolute; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--ink); }
+  .label-left { left: calc(50% - 340px); top: 50%; transform: translateY(-50%); }
+  .label-right { right: calc(50% - 340px); top: 50%; transform: translateY(-50%); }
+  .label-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--cream); font-size: 1.3rem; z-index: 2; text-align: center; width: 180px; }
+  .perspective-caption { text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.4rem; color: var(--ink-soft); max-width: 600px; margin: 0 auto; }
+
+  .intro { padding: 6rem 0; border-top: 1px solid var(--line); }
+  .intro-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; }
+  .intro-label { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); position: sticky; top: 8rem; }
+  .intro-text { font-size: 1.35rem; line-height: 1.7; color: var(--ink); font-weight: 300; }
+  .intro-text .highlight { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--sage); font-size: 1.5rem; }
+
+  .voices { padding: 6rem 0; background: var(--cream-deep); }
+  .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; flex-wrap: wrap; gap: 1rem; }
+  .section-title { font-size: clamp(2.5rem, 5vw, 4rem); }
+  .section-subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); font-size: 1.2rem; }
+  .voices-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .voice-card { background: var(--cream); padding: 3rem 2.5rem; border: 1px solid var(--line); transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); position: relative; overflow: hidden; cursor: pointer; text-decoration: none; display: block; color: var(--ink); }
+  .voice-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.5s; }
+  .voice-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -20px rgba(58, 50, 42, 0.15); }
+  .voice-card:hover::before { transform: scaleX(1); }
+  .voice-card:nth-child(1) { --accent: var(--sage); }
+  .voice-card:nth-child(2) { --accent: var(--terracotta); }
+  .voice-card:nth-child(3) { --accent: var(--dusty-blue); }
+  .voice-number { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; letter-spacing: 0.2em; color: var(--ink-soft); margin-bottom: 2rem; }
+  .voice-title { font-size: 2.2rem; margin-bottom: 1.5rem; color: var(--ink); }
+  .voice-desc { color: var(--ink-soft); margin-bottom: 2rem; line-height: 1.7; }
+  .voice-link { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: gap 0.3s; }
+  .voice-card:hover .voice-link { gap: 1rem; }
+
+  .featured { padding: 8rem 0; }
+  .featured-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: center; }
+  .featured-media { aspect-ratio: 4/5; background: linear-gradient(135deg, var(--sage-soft) 0%, var(--dusty-blue) 100%); position: relative; overflow: hidden; border-radius: 2px; cursor: pointer; }
+  .featured-media::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 40%, rgba(245, 241, 234, 0.3), transparent 50%), radial-gradient(circle at 70% 60%, rgba(196, 133, 106, 0.25), transparent 50%); }
+  .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90px; height: 90px; border-radius: 50%; background: rgba(245, 241, 234, 0.95); display: flex; align-items: center; justify-content: center; transition: transform 0.3s; z-index: 2; }
+  .play-btn:hover { transform: translate(-50%, -50%) scale(1.1); }
+  .play-btn::before { content: ''; width: 0; height: 0; border-left: 18px solid var(--ink); border-top: 11px solid transparent; border-bottom: 11px solid transparent; margin-left: 5px; }
+  .featured-meta { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.5rem; }
+  .featured-title { font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 1.5rem; line-height: 1.15; }
+  .featured-interviewee { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.3rem; color: var(--ink-soft); margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--line); }
+  .featured-excerpt { color: var(--ink-soft); margin-bottom: 2.5rem; line-height: 1.8; font-size: 1.05rem; }
+  .btn-explore { display: inline-flex; align-items: center; gap: 1rem; padding: 1.1rem 2.2rem; background: var(--ink); color: var(--cream); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; transition: all 0.3s; border: 1px solid var(--ink); }
+  .btn-explore:hover { background: transparent; color: var(--ink); }
+  .btn-explore svg { width: 14px; height: 14px; transition: transform 0.3s; }
+  .btn-explore:hover svg { transform: translateX(4px); }
+
+  /* VIDEO MODAL STYLES */
+  .video-modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(58, 50, 42, 0.92); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 2rem; }
+  .video-modal.active { display: flex; animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .modal-content { position: relative; width: 100%; max-width: 1000px; aspect-ratio: 16/9; background: #000; box-shadow: 0 25px 60px rgba(0,0,0,0.6); border-radius: 4px; overflow: hidden; }
+  .close-modal { position: absolute; top: -50px; right: 0; color: var(--cream); font-size: 2.5rem; cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 300; transition: color 0.3s; line-height: 1; }
+  .close-modal:hover { color: var(--sage-soft); }
+  .video-container { width: 100%; height: 100%; }
+  .video-container iframe { width: 100%; height: 100%; border: none; }
+
+  .articles { padding: 6rem 0 8rem; border-top: 1px solid var(--line); }
+  .articles-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: auto auto; gap: 2rem; }
+  .article-card { background: var(--cream); border: 1px solid var(--line); overflow: hidden; cursor: pointer; transition: all 0.4s; display: flex; flex-direction: column; }
+  .article-card:hover { transform: translateY(-4px); box-shadow: 0 15px 35px -15px rgba(58, 50, 42, 0.15); }
+  .article-card.featured-article { grid-row: span 2; }
+  .article-image { aspect-ratio: 16/10; background: var(--cream-deep); position: relative; overflow: hidden; }
+  .featured-article .article-image { aspect-ratio: 4/3; flex: 1; }
+  .article-image-inner { width: 100%; height: 100%; transition: transform 0.6s; }
+  .article-card:hover .article-image-inner { transform: scale(1.04); }
+  .img-1 { background: linear-gradient(135deg, #B8C4AB 0%, #8A9A7B 100%); }
+  .img-2 { background: linear-gradient(135deg, #D4A594 0%, #C4856A 100%); }
+  .img-3 { background: linear-gradient(135deg, #A8B8C8 0%, #7B96AA 100%); }
+  .img-4 { background: linear-gradient(135deg, #E8DCC8 0%, #C4B39A 100%); }
+  .img-5 { background: linear-gradient(135deg, #C8B8A8 0%, #8A7A6A 100%); }
+  .article-body { padding: 1.8rem; flex: 1; display: flex; flex-direction: column; }
+  .article-category { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); margin-bottom: 1rem; }
+  .article-title { font-size: 1.5rem; margin-bottom: 0.8rem; line-height: 1.25; transition: color 0.3s; }
+  .featured-article .article-title { font-size: 2rem; }
+  .article-card:hover .article-title { color: var(--sage); }
+  .article-excerpt { color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 1.5rem; flex: 1; }
+  .article-meta { font-size: 0.8rem; color: var(--ink-soft); display: flex; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--line); }
+
+  .closing { padding: 10rem 2rem; background: var(--ink); color: var(--cream); text-align: center; position: relative; overflow: hidden; }
+  .closing::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(138, 154, 123, 0.15), transparent 70%); border-radius: 50%; }
+  .closing-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 4rem); font-style: italic; line-height: 1.2; max-width: 900px; margin: 0 auto 3rem; position: relative; z-index: 1; }
+  .closing-quote .accent { color: var(--sage-soft); }
+  .closing-cta { display: inline-flex; align-items: center; gap: 1rem; padding: 1.1rem 2.5rem; background: transparent; color: var(--cream); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid var(--cream); transition: all 0.3s; position: relative; z-index: 1; }
+  .closing-cta:hover { background: var(--cream); color: var(--ink); }
+
+  footer { padding: 3rem 2rem; background: var(--ink); color: var(--cream); border-top: 1px solid rgba(245, 241, 234, 0.1); }
+  .footer-inner { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; font-size: 0.85rem; color: rgba(245, 241, 234, 0.6); }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--cream); }
+  .footer-links { display: flex; gap: 2rem; list-style: none; }
+  .footer-links a { color: rgba(245, 241, 234, 0.6); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--cream); }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .intro-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .intro-label { position: static; }
+    .voices-grid { grid-template-columns: 1fr; }
+    .featured-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .articles-grid { grid-template-columns: 1fr; }
+    .article-card.featured-article { grid-row: auto; }
+    .perspective-visual { height: 400px; }
+    .circle { width: 220px; height: 220px; }
+    .circle-left { left: calc(50% - 170px); }
+    .circle-right { right: calc(50% - 170px); }
+    .label-left { left: calc(50% - 230px); font-size: 0.95rem; }
+    .label-right { right: calc(50% - 230px); font-size: 0.95rem; }
+    .closing { padding: 6rem 1.5rem; }
+    .modal-content { aspect-ratio: auto; height: 250px; }
+    .close-modal { top: -40px; right: 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Through Their Eyes</div>
+  <ul class="nav-links">
+    <li><a href="#voices">Voices</a></li>
+    <li><a href="teens.html">Teen Voices</a></li>
+    <li><a href="parents.html">Parent Voices</a></li>
+    <li><a href="experts.html">Expert Voices</a></li>
+    <li><a href="journal.html">Journal</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">A youth-led platform · Est. 2026</div>
+    <h1 class="hero-title">
+      <span class="line">Through</span>
+      <span class="line"><span class="italic">Their</span> Eyes</span>
+    </h1>
+    <p class="hero-tagline">Different perspectives. Shared understanding.</p>
+    <p class="hero-question">What if understanding each other started with seeing the world through someone else's eyes?</p>
+  </div>
+</section>
+
+<section class="perspective-section">
+  <div class="container">
+    <div class="perspective-visual">
+      <div class="circle circle-left"></div>
+      <div class="circle circle-right"></div>
+      <span class="circle-label label-left">One view</span>
+      <span class="circle-label label-right">Another</span>
+      <span class="label-center">Where they meet</span>
+    </div>
+    <p class="perspective-caption">Two perspectives, gently overlapping — not to erase difference, but to find the space where understanding begins.</p>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="container">
+    <div class="intro-grid">
+      <div class="intro-label">About the platform</div>
+      <p class="intro-text"><span class="highlight">Through Their Eyes</span> is a space where teenagers, parents, psychologists, and educators come together to share the conversations that rarely get heard. We believe that the distance between generations isn't a wall — it's a gap that can be bridged with listening. Here, every voice matters, every story counts, and every perspective is an invitation to understand a little more deeply.</p>
+    </div>
+  </div>
+</section>
+
+<section class="voices" id="voices">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Three voices,<br/>one conversation.</h2>
+      <p class="section-subtitle">Each perspective adds a layer to the whole.</p>
+    </div>
+    <div class="voices-grid">
+      <a href="teens.html" class="voice-card">
+        <div class="voice-number">01 — Generation</div>
+        <h3 class="voice-title">Teen Voices</h3>
+        <p class="voice-desc">Raw, honest reflections from teenagers navigating identity, pressure, and the search for belonging. Unfiltered. Unapologetic. Real.</p>
+        <span class="voice-link">Explore teen voices →</span>
+      </a>
+      <a href="parents.html" class="voice-card">
+        <div class="voice-number">02 — Generation</div>
+        <h3 class="voice-title">Parent Voices</h3>
+        <p class="voice-desc">The quiet worries, the unspoken hopes, and the lessons learned in raising humans through a world that keeps changing beneath their feet.</p>
+        <span class="voice-link">Hear from parents →</span>
+      </a>
+      <a href="experts.html" class="voice-card">
+        <div class="voice-number">03 — Perspective</div>
+        <h3 class="voice-title">Expert Voices</h3>
+        <p class="voice-desc">Psychologists, educators, and counselors share the research, the patterns, and the gentle truths that help both sides find common ground.</p>
+        <span class="voice-link">Read the experts →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="featured" id="conversations">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Featured conversation</h2>
+      <p class="section-subtitle">A long-form dialogue, gently guided.</p>
+    </div>
+    <div class="featured-grid">
+      <div class="featured-media" id="playBtn">
+        <div class="play-btn"></div>
+      </div>
+      <div>
+        <div class="featured-meta">Episode 07 · 42 min listen</div>
+        <h3 class="featured-title">"I didn't know you were listening — I thought you were judging."</h3>
+        <p class="featured-interviewee">In conversation with Maya, 17, and her mother Elena</p>
+        <p class="featured-excerpt">A quiet conversation about the silence that grew between them over three years — and the small, ordinary moment that finally broke it open. Maya and Elena speak about expectations, misread texts, and the afternoon everything changed.</p>
+        <a href="#" class="btn-explore">Explore Conversation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO MODAL (Hidden by default) -->
+<div id="videoModal" class="video-modal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <div class="video-container">
+      <iframe id="modalVideo" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<section class="articles" id="articles">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">From the journal</h2>
+      <p class="section-subtitle">Essays, interviews, and field notes.</p>
+    </div>
+    <div class="articles-grid">
+      <article class="article-card featured-article">
+        <div class="article-image"><div class="article-image-inner img-1"></div></div>
+        <div class="article-body">
+          <div class="article-category">Essay · Teen Voices</div>
+          <h3 class="article-title">The things I say when I say "I'm fine"</h3>
+          <p class="article-excerpt">A seventeen-year-old unpacks the vocabulary of silence — and what it really means when a teenager retreats behind a single phrase.</p>
+          <div class="article-meta"><span>By Jordan A.</span><span>8 min read</span></div>
+        </div>
+      </article>
+      <article class="article-card">
+        <div class="article-image"><div class="article-image-inner img-2"></div></div>
+        <div class="article-body">
+          <div class="article-category">Parent Voices</div>
+          <h3 class="article-title">Letting go, slowly</h3>
+          <p class="article-excerpt">A mother on the quiet grief and quiet joy of watching her child become someone she doesn't fully recognize.</p>
+          <div class="article-meta"><span>By Priya M.</span><span>6 min read</span></div>
+        </div>
+      </article>
+      <article class="article-card">
+        <div class="article-image"><div class="article-image-inner img-3"></div></div>
+        <div class="article-body">
+          <div class="article-category">Expert Insight</div>
+          <h3 class="article-title">Why teens stop talking</h3>
+          <p class="article-excerpt">A child psychologist explains the science behind adolescent silence — and how parents can invite conversation back.</p>
+          <div class="article-meta"><span>Dr. Amara Osei</span><span>10 min read</span></div>
+        </div>
+      </article>
+      <article class="article-card">
+        <div class="article-image"><div class="article-image-inner img-4"></div></div>
+        <div class="article-body">
+          <div class="article-category">Interview</div>
+          <h3 class="article-title">The teacher who listened first</h3>
+          <p class="article-excerpt">An educator on the radical act of hearing students before correcting them.</p>
+          <div class="article-meta"><span>Mr. Daniel K.</span><span>7 min read</span></div>
+        </div>
+      </article>
+      <article class="article-card">
+        <div class="article-image"><div class="article-image-inner img-5"></div></div>
+        <div class="article-body">
+          <div class="article-category">Field Notes</div>
+          <h3 class="article-title">What I wish my dad knew</h3>
+          <p class="article-excerpt">Five teenagers, five letters never sent — until now.</p>
+          <div class="article-meta"><span>Collective</span><span>12 min read</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="closing" id="about">
+  <h2 class="closing-quote">Everyone has a side of the story. <span class="accent">We want to hear it.</span></h2>
+  <a href="#" class="closing-cta">Share your perspective</a>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Through Their Eyes</div>
+    <ul class="footer-links">
+      <li><a href="#">About</a></li>
+      <li><a href="#">Submit</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Instagram</a></li>
+    </ul>
+    <div>© 2026 · A youth-led initiative</div>
+  </div>
+</footer>
+
+<script>
+  // Parallax effect
+  document.addEventListener('mousemove', (e) => {
+    const circles = document.querySelectorAll('.circle');
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    circles[0].style.transform = `translate(${-x}px, ${-y}px)`;
+    circles[1].style.transform = `translate(${x}px, ${y}px)`;
+  });
+
+  // Video Modal Logic
+  const modal = document.getElementById('videoModal');
+  const playBtn = document.getElementById('playBtn');
+  const closeBtn = document.querySelector('.close-modal');
+  const iframe = document.getElementById('modalVideo');
+  
+  // CHANGE THIS LINK TO YOUR OWN YOUTUBE VIDEO
+  const videoUrl = "https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=1"; 
+
+  playBtn.addEventListener('click', () => {
+    iframe.src = videoUrl;
+    modal.classList.add('active');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.classList.remove('active');
+    iframe.src = ''; 
+  });
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('active');
+      iframe.src = '';
+    }
+  });
+</script>
+</body>
+</html>
